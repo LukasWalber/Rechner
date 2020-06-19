@@ -1,0 +1,7 @@
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\bin\Debug\Rechner.exe.config
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\bin\Debug\Rechner.exe
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\bin\Debug\Rechner.pdb
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\obj\Debug\Rechner.csprojAssemblyReference.cache
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\obj\Debug\Rechner.csproj.CoreCompileInputs.cache
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\obj\Debug\Rechner.exe
+C:\Users\lukas.walber\source\repos\Rechner\Rechner\obj\Debug\Rechner.pdb
