@@ -27,6 +27,20 @@ namespace Rechner
 
                 Console.WriteLine("bitte gleichung eingeben");
                 eingabe = Console.ReadLine();
+
+                try
+                {
+                eingabe = EingabeChecker(eingabe);
+                }
+                catch (System.ArgumentException e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine(" ");
+                    Console.WriteLine("press any key to exit");
+                    Console.ReadKey();
+                    break;
+                }
+
                 eingabeKlammerMulti = KlammerMulti(eingabe);
                 eingabeOhneKlammern = KlammerRechner(eingabeKlammerMulti);
                 zahlen = ZahlenFilter(eingabeOhneKlammern);
@@ -61,6 +75,22 @@ namespace Rechner
                 }
             }
          }
+
+        private static string EingabeChecker(string eingabe)
+        {
+            string regexExpression = @"[^0-9\+\-\*\/\s]";                                                   //alles was keine zahl, operator oder whitespace ist
+
+            Match m = Regex.Match(eingabe, regexExpression);
+
+            if (m.Value == "")
+            {
+                return eingabe;
+            }
+            else
+            {
+            throw new System.ArgumentException("folgende werte sind ungültig:", m.Value);
+            }
+        }
 
         static string KlammerMulti(string eingabe)
         {
