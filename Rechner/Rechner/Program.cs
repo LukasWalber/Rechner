@@ -51,16 +51,19 @@ namespace Rechner
             {
                 if (k == "(")
                 {
-                    eingabe = Regex.Replace(eingabe, @"(?<=\d+)\(+?", "*(");
+                    Regex rgx = new Regex(@"(?<=\d+)\(+?");
+                    eingabe = rgx.Replace(eingabe, "*(", 1);
                 }
                 if (k == ")")
                 {
-                    eingabe = Regex.Replace(eingabe, @"\)(?=\d+)", ")*");
+                    Regex rgx = new Regex(@"\)(?=\d+)");
+                    eingabe = rgx.Replace(eingabe, ")*", 1);
                 }
                 if (k == ")(")
                 {
-                    eingabe = Regex.Replace(eingabe, @"\)\(+?", ")*(");
-                }
+                    Regex rgx = new Regex(@"\)\(+?");
+                    eingabe = rgx.Replace(eingabe, ")*(", 1);
+                } 
             }
 
             return eingabe;
