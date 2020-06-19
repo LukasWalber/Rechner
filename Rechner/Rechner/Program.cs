@@ -1,6 +1,7 @@
-﻿using System;
+﻿using System;           
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,36 +11,56 @@ namespace Rechner
 {
     class Program
     {
+        private static ConsoleKey response;
+
         static void Main(string[] args)
         {
-            string eingabe;
-            string eingabeKlammerMulti;
-            string eingabeOhneKlammern;
-            int ergebnis;
-            List<int> zahlen;
-            List<string> operatoren;
-
-            Console.WriteLine("bitte gleichung eingeben");
-            eingabe = Console.ReadLine();
-            eingabeKlammerMulti = KlammerMulti(eingabe);
-            eingabeOhneKlammern = KlammerRechner(eingabeKlammerMulti);
-            zahlen = ZahlenFilter(eingabeOhneKlammern);
-            operatoren = OperatorFilter(eingabeOhneKlammern);
-            var punktVorStrichErgebnis = PunktVorStrichRechner(operatoren, zahlen);
-            zahlen = punktVorStrichErgebnis.Item2;
-            operatoren = punktVorStrichErgebnis.Item1;
-
-
-            ergebnis = RechnerAusfuehren(zahlen, operatoren);
-            
-            if (ergebnis.Equals(null))
+            while (true)
             {
-                Console.WriteLine("es ist ein fehler aufgetreten");
-            }
+                string eingabe;
+                string eingabeKlammerMulti;
+                string eingabeOhneKlammern;
+                int ergebnis;
+                List<int> zahlen;
+                List<string> operatoren;
 
-            Console.WriteLine(ergebnis);
-            Console.ReadKey();
-        }
+
+                Console.WriteLine("bitte gleichung eingeben");
+                eingabe = Console.ReadLine();
+                eingabeKlammerMulti = KlammerMulti(eingabe);
+                eingabeOhneKlammern = KlammerRechner(eingabeKlammerMulti);
+                zahlen = ZahlenFilter(eingabeOhneKlammern);
+                operatoren = OperatorFilter(eingabeOhneKlammern);
+                var punktVorStrichErgebnis = PunktVorStrichRechner(operatoren, zahlen);
+                zahlen = punktVorStrichErgebnis.Item2;
+                operatoren = punktVorStrichErgebnis.Item1;
+
+
+                ergebnis = RechnerAusfuehren(zahlen, operatoren);
+
+                if (ergebnis.Equals(null))
+                {
+                    Console.WriteLine("es ist ein fehler aufgetreten");
+                }
+
+                Console.WriteLine(ergebnis);
+                do
+                {
+                    Console.WriteLine("noch eine Rechnung ? y/n");
+                    response = Console.ReadKey(true).Key;
+
+                } while (response != ConsoleKey.Y && response != ConsoleKey.N);
+
+                if (response == ConsoleKey.Y)
+                {
+                    continue;
+                }
+                else if (response == ConsoleKey.N)
+                {
+                    break;
+                }
+            }
+         }
 
         static string KlammerMulti(string eingabe)
         {
