@@ -1,11 +1,7 @@
-﻿using System;           
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Rechner
 {
@@ -30,7 +26,7 @@ namespace Rechner
 
                 try
                 {
-                eingabe = EingabeChecker(eingabe);
+                    eingabe = EingabeChecker(eingabe);
                 }
                 catch (System.ArgumentException e)
                 {
@@ -74,7 +70,7 @@ namespace Rechner
                     break;
                 }
             }
-         }
+        }
 
         private static string EingabeChecker(string eingabe)
         {
@@ -88,7 +84,7 @@ namespace Rechner
             }
             else
             {
-            throw new System.ArgumentException("folgende werte sind ungültig:", m.Value);
+                throw new System.ArgumentException("folgende werte sind ungültig:", m.Value);
             }
         }
 
@@ -98,7 +94,7 @@ namespace Rechner
 
             string[] klammernMulti = Regex.Matches(eingabe, regexExpression).OfType<Match>().Select(m => string.Format(m.Value)).ToArray();
 
-            foreach(string k in klammernMulti)
+            foreach (string k in klammernMulti)
             {
                 if (k == "(")
                 {
@@ -114,7 +110,7 @@ namespace Rechner
                 {
                     Regex rgx = new Regex(@"\)\(+?");
                     eingabe = rgx.Replace(eingabe, ")*(", 1);
-                } 
+                }
             }
 
             return eingabe;
@@ -159,7 +155,7 @@ namespace Rechner
 
 
             List<string> operatorenList = new List<string>();
-            foreach(string o in operatoren)
+            foreach (string o in operatoren)
             {
                 operatorenList.Add(o);
             }
@@ -167,7 +163,7 @@ namespace Rechner
             return operatorenList;
         }
 
-        static string KlammerRechner(string eingabe) 
+        static string KlammerRechner(string eingabe)
         {
             int ergebnis;
             List<int> zahlen;
@@ -220,8 +216,8 @@ namespace Rechner
             {
                 if ((multiplikationszeichenIndex < geteiltzeichenIndex && multiplikationszeichenIndex != -1) ^ geteiltzeichenIndex.Equals(-1))
                 {
-                    zahlen[multiplikationszeichenIndex] = RechnerSimpel(zahlen[multiplikationszeichenIndex], zahlen[multiplikationszeichenIndex+1], operatoren[multiplikationszeichenIndex]);
-                    zahlen.RemoveAt(multiplikationszeichenIndex+1);
+                    zahlen[multiplikationszeichenIndex] = RechnerSimpel(zahlen[multiplikationszeichenIndex], zahlen[multiplikationszeichenIndex + 1], operatoren[multiplikationszeichenIndex]);
+                    zahlen.RemoveAt(multiplikationszeichenIndex + 1);
                     operatoren.RemoveAt(multiplikationszeichenIndex);
                 }
 
@@ -240,7 +236,7 @@ namespace Rechner
             return tupleReturn;
         }
 
-        static int RechnerSimpel(int zahl1, int zahl2, string operatoro) 
+        static int RechnerSimpel(int zahl1, int zahl2, string operatoro)
         {
             if (operatoro.Equals("+"))
             {
@@ -258,7 +254,7 @@ namespace Rechner
             }
 
             // if (operatoro.Equals("/"))
-            return zahl1 / zahl2;         
+            return zahl1 / zahl2;
         }
 
         static int RechnerAusfuehren(List<int> zahlen, List<string> operatoren)
