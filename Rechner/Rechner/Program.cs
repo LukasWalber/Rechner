@@ -74,7 +74,7 @@ namespace Rechner
 
         private static string EingabeChecker(string eingabe)
         {
-            string regexExpression = @"[^0-9\+\-\*\/\(\)\s]";                                                   //alles was keine zahl, operator oder whitespace ist
+            string regexExpression = @"[^0-9\+\-\*\/\(\)\s]";                                                   //alles was keine zahl, operator, klammer oder whitespace ist
 
             string[] match = Regex.Matches(eingabe, regexExpression).OfType<Match>().Select(m => string.Format(m.Value)).ToArray();
             string errorMessage = "";
