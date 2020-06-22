@@ -16,8 +16,8 @@ namespace Rechner
                 string eingabe;
                 string eingabeKlammerMulti;
                 string eingabeOhneKlammern;
-                int ergebnis;
-                List<int> zahlen;
+                double ergebnis;
+                List<double> zahlen;
                 List<string> operatoren;
 
 
@@ -137,14 +137,14 @@ namespace Rechner
             return klammernList;
         }
 
-        static List<int> ZahlenFilter(string eingabe)
+        static List<double> ZahlenFilter(string eingabe)
         {
             string regexExpression = @"\d+";                                              //D = alle Nummern, + = eine Stelle oder mehr
 
-            var zahlen = Regex.Matches(eingabe, regexExpression).OfType<Match>().Select(m => int.Parse(m.Value)).ToArray();
+            var zahlen = Regex.Matches(eingabe, regexExpression).OfType<Match>().Select(m => double.Parse(m.Value)).ToArray();
 
-            List<int> zahlenList = new List<int>();
-            foreach (int o in zahlen)
+            List<double> zahlenList = new List<double>();
+            foreach (double o in zahlen)
             {
                 zahlenList.Add(o);
             }
@@ -170,8 +170,8 @@ namespace Rechner
 
         static string KlammerRechner(string eingabe)
         {
-            int ergebnis;
-            List<int> zahlen;
+            double ergebnis;
+            List<double> zahlen;
             List<string> operatoren;
             string klammerAufgabe;
             string ergebnisString;
@@ -208,7 +208,7 @@ namespace Rechner
             return eingabeOhneKlammern;
         }
 
-        static Tuple<List<string>, List<int>> PunktVorStrichRechner(List<string> operatoren, List<int> zahlen)
+        static Tuple<List<string>, List<double>> PunktVorStrichRechner(List<string> operatoren, List<double> zahlen)
         {
             int multiplikationszeichenIndex;
             int geteiltzeichenIndex;
@@ -237,11 +237,11 @@ namespace Rechner
                 geteiltzeichenIndex = operatoren.IndexOf("/");
             }
 
-            var tupleReturn = new Tuple<List<string>, List<int>>(operatoren, zahlen);
+            var tupleReturn = new Tuple<List<string>, List<double>>(operatoren, zahlen);
             return tupleReturn;
         }
 
-        static int RechnerSimpel(int zahl1, int zahl2, string operatoro)
+        static double RechnerSimpel(double zahl1, double zahl2, string operatoro)
         {
             if (operatoro.Equals("+"))
             {
@@ -262,7 +262,7 @@ namespace Rechner
             return zahl1 / zahl2;
         }
 
-        static int RechnerAusfuehren(List<int> zahlen, List<string> operatoren)
+        static double RechnerAusfuehren(List<double> zahlen, List<string> operatoren)
         {
             int n = 2;
             int operatorenZahl = operatoren.Count;
@@ -270,7 +270,7 @@ namespace Rechner
             {
                 return zahlen[0];
             }
-            int zwischenergebnis = RechnerSimpel(zahlen[0], zahlen[1], operatoren[0]);
+            double zwischenergebnis = RechnerSimpel(zahlen[0], zahlen[1], operatoren[0]);
 
             if (operatorenZahl < 2)
             {
