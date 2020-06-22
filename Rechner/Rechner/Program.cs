@@ -76,15 +76,20 @@ namespace Rechner
         {
             string regexExpression = @"[^0-9\+\-\*\/\s]";                                                   //alles was keine zahl, operator oder whitespace ist
 
-            Match m = Regex.Match(eingabe, regexExpression);
+            string[] match = Regex.Matches(eingabe, regexExpression).OfType<Match>().Select(m => string.Format(m.Value)).ToArray();
+            string errorMessage = "";
 
-            if (m.Value == "")
+            if (match.Length == 0)
             {
                 return eingabe;
             }
             else
             {
-                throw new System.ArgumentException("folgende werte sind ungültig:", m.Value);
+                foreach(string error in match)
+                {
+                    errorMessage = errorMessage + error;
+                }
+                throw new System.ArgumentException("folgende werte sind ungültig:", errorMessage);
             }
         }
 
